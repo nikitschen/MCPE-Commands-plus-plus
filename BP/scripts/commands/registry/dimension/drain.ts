@@ -62,7 +62,7 @@ function* drainGenerator(
             continue;
         }
 
-        const block: Block | any = dimension.getBlock(location);
+        const block: Block = dimension.getBlock(location);
         if (block == null) {
             yield;
             continue;
