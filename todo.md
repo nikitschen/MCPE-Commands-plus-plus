@@ -27,6 +27,8 @@ selector could something like {“score”:{“name”:”@s”,”objective”:
     - {var.VARIABLENAME}
 
 /shootprojectile -- spawns a projectile (probs with velocity)
+/shootprojectileAtLocation
+/shootprojectileAtTarget -- arc trajectory type shit
 
 [!] /pickup -- gives target an item from a drop
 

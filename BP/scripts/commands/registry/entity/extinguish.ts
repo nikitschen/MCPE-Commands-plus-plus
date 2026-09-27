@@ -46,7 +46,7 @@ CommandManager.register(
             system.run(() => {
                 origin.sourceEntity?.extinguishFire();
             });
-            return { status: CustomCommandStatus.Success, message: `Self extinguished` };
+            return { status: CustomCommandStatus.Success, message: "Self extinguished" };
         }
 
         if (targets.length === 0) {

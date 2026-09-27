@@ -46,7 +46,7 @@ import "./registry/debug/log.js";
 import "./registry/debug/seed.js";
 import "./registry/debug/test.js";
 import "./registry/dimension/dimension.js";
-import "./registry/dimension/drain.js"
+import "./registry/dimension/drain.js";
 import "./registry/dimension/explode.js";
 import "./registry/drawer/draw.js";
 import "./registry/drawer/drawArrow.js";
@@ -76,6 +76,7 @@ import "./registry/entity/health.js";
 import "./registry/entity/remove.js";
 import "./registry/entity/rotate.js";
 import "./registry/entity/setOnFire.js";
+import "./registry/entity/shootProjectile.js";
 import "./registry/entity/spawnItem.js";
 import "./registry/entity/top.js";
 import "./registry/item/blockItemDurability.js";

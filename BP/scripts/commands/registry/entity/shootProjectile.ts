@@ -23,44 +23,45 @@
 
 import {
     CommandPermissionLevel,
-    CustomCommandStatus,
     CustomCommandParamType,
-    Vector3,
-    ItemStack,
-    ItemType,
+    CustomCommandStatus,
+    Entity,
+    EntityType,
+    EntityTypes,
     system,
     world,
 } from "@minecraft/server";
 
-import { getDimensionFromCommandOrigin } from "../../../utils/dimension.js";
-import { clamp } from "../../../utils/math.js";
 import { Vector } from "../../../utils/vector.js";
 import { CommandManager } from "../../command.js";
 
 CommandManager.register(
     {
-        name: "spawnitem",
-        description: "Summons an item entity",
+        name: "shootprojectile",
+        description: "Shoots projectile",
         permissionLevel: CommandPermissionLevel.GameDirectors,
-        mandatoryParameters: [
-            { name: "item", type: CustomCommandParamType.ItemType },
-            { name: "location", type: CustomCommandParamType.Location },
+        mandatoryParameters: [{ name: "targets", type: CustomCommandParamType.EntitySelector }],
+        optionalParameters: [
+            { name: "projectile", type: CustomCommandParamType.EntityType },
+            { name: "speed", type: CustomCommandParamType.Float },
         ],
-        optionalParameters: [{ name: "quantity", type: CustomCommandParamType.Integer }],
     },
-    (origin, item: ItemType, location: Vector3, quantity: number = 1) => {
-        const dimension = getDimensionFromCommandOrigin(origin);
-        quantity = clamp(quantity, 1, 255);
-
-        const itemStack = new ItemStack(item, quantity);
-
+    (
+        origin,
+        targets: Entity[],
+        projectile: EntityType = EntityTypes.get("minecraft:arrow")!,
+        speed: number = 1
+    ) => {
         system.run(() => {
-            dimension.spawnItem(itemStack, location);
+            for (const entity of targets) {
+                const entityViewDirection = entity.getViewDirection();
+                const spawnedProjectile = entity.dimension.spawnEntity(
+                    projectile,
+                    Vector.locationInfront(entity.getHeadLocation(), entityViewDirection, 1)
+                );
+                spawnedProjectile.applyImpulse(Vector.multiply(entityViewDirection, speed));
+            }
         });
-
-        return {
-            status: CustomCommandStatus.Success,
-            message: `Summoned %${item.localizationKey} * ${quantity}`,
-        };
+        return { status: CustomCommandStatus.Success, message: "Projectile shot" };
     }
 );
