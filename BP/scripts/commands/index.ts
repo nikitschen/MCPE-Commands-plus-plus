@@ -77,6 +77,7 @@ import "./registry/entity/remove.js";
 import "./registry/entity/rotate.js";
 import "./registry/entity/setOnFire.js";
 import "./registry/entity/shootProjectile.js";
+import "./registry/entity/shootprojectileAtLocation.js";
 import "./registry/entity/spawnItem.js";
 import "./registry/entity/top.js";
 import "./registry/item/blockItemDurability.js";
